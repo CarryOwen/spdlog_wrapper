@@ -1,0 +1,1 @@
+/usr/bin/c++   -pthread   CMakeFiles/app_log.dir/main.cpp.o  -o app_log  -Wl,-rpath,/root/.health_ctrl_ws/spdklog/build liblog.so 

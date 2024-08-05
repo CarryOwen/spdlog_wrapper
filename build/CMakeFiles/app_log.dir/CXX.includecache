@@ -1,0 +1,28 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/root/.health_ctrl_ws/spdklog/main.cpp
+spdlog.h
+/root/.health_ctrl_ws/spdklog/spdlog.h
+unistd.h
+-
+
+/root/.health_ctrl_ws/spdklog/spdlog.h
+memory
+-
+string
+-
+spdlog/spdlog.h
+/root/.health_ctrl_ws/spdklog/spdlog/spdlog.h
+spdlog/async.h
+/root/.health_ctrl_ws/spdklog/spdlog/async.h
+spdlog/sinks/stdout_color_sinks.h
+/root/.health_ctrl_ws/spdklog/spdlog/sinks/stdout_color_sinks.h
+spdlog/sinks/rotating_file_sink.h
+/root/.health_ctrl_ws/spdklog/spdlog/sinks/rotating_file_sink.h
+

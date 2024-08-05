@@ -1,0 +1,4 @@
+/root/.health_ctrl_ws/spdklog/build/CMakeFiles/rebuild_cache.dir
+/root/.health_ctrl_ws/spdklog/build/CMakeFiles/edit_cache.dir
+/root/.health_ctrl_ws/spdklog/build/CMakeFiles/app_log.dir
+/root/.health_ctrl_ws/spdklog/build/CMakeFiles/log.dir
