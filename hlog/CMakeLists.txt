@@ -1,48 +1,43 @@
 cmake_minimum_required(VERSION 3.10)
-project(hlog VERSION 1.0)
+project(LogWrapper VERSION 1.0)
 
-# Ìí¼ÓµÚÈı·½¿âÔ´Âë
+# æ·»åŠ ç¬¬ä¸‰æ–¹åº“æºç 
 add_subdirectory(./spdlog-1.x)
 add_subdirectory(./json)
- 
-# ¶¨ÒåÔ´Âë
-set(SOURCES ./hlog.cpp)
 
-#Ìí¼ÓÍ·ÎÄ¼şÂ·¾¶
+# å®šä¹‰æºç 
+set(SOURCES ./log_wrapper.cpp)
+
+# æ·»åŠ å¤´æ–‡ä»¶è·¯å¾„
 include_directories(./json/include)
 include_directories(./spdlog-1.x/include)
- 
-#ÉèÖÃwindowsÏÂmsvc±àÒëÊ±£¬Ê¹ÓÃ¶¯Ì¬ÔËĞĞÊ±¿â
+
+# è®¾ç½®windowsä¸‹msvcç¼–è¯‘æ—¶ï¼Œä½¿ç”¨åŠ¨æ€è¿è¡Œæ—¶åº“
 set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreadedDLL")
- 
-# Ìí¼ÓÔ´ÎÄ¼şµ½¾²Ì¬¿â
-add_library(${PROJECT_NAME}_st STATIC ${SOURCES})
 
-# Á´½ÓµÚÈı·½¿â
-target_link_libraries(${PROJECT_NAME}_st spdlogd nlohmann_json)
+# æ·»åŠ æºæ–‡ä»¶åˆ°é™æ€åº“
+add_library(${PROJECT_NAME} STATIC ${SOURCES})
 
+# é“¾æ¥ç¬¬ä¸‰æ–¹åº“
+target_link_libraries(${PROJECT_NAME} spdlogd nlohmann_json)
 
-
-# install¹æÔò
+# installè§„åˆ™
 if(WIN32)
     message("Running on Windows")
 else()
     message("Not running on Windows")
 
-    # ½«includeÄ¿Â¼Ìí¼Óµ½¾²Ì¬¿âµÄÍ·ÎÄ¼şÂ·¾¶ÖĞ
-    target_include_directories(${PROJECT_NAME}_st PUBLIC ./json/include)
-    target_include_directories(${PROJECT_NAME}_st PUBLIC ./spdlog-1.x/include)
-    target_include_directories(${PROJECT_NAME}_st PUBLIC .hlog.h)
+    # å°†includeç›®å½•æ·»åŠ åˆ°é™æ€åº“çš„å¤´æ–‡ä»¶è·¯å¾„ä¸­
+    target_include_directories(${PROJECT_NAME} PUBLIC ./json/include)
+    target_include_directories(${PROJECT_NAME} PUBLIC ./spdlog-1.x/include)
+    target_include_directories(${PROJECT_NAME} PUBLIC .log_wrapper.h)
 
-    # ´´½¨ÎÄ¼ş¼Ğ
+    # åˆ›å»ºæ–‡ä»¶å¤¹
     message(out_dir: ${PROJECT_BINARY_DIR})
 
-    # ¿â°²×°Â·¾¶
-    install(FILES ./hlog.h DESTINATION ${PROJECT_BINARY_DIR}/include)
+    # åº“å®‰è£…è·¯å¾„
+    install(FILES ./log_wrapper.h DESTINATION ${PROJECT_BINARY_DIR}/include)
     install(DIRECTORY ./json/include DESTINATION ${PROJECT_BINARY_DIR})
     install(DIRECTORY ./spdlog-1.x/include DESTINATION ${PROJECT_BINARY_DIR})
-    install(TARGETS ${PROJECT_NAME}_st ARCHIVE DESTINATION ${PROJECT_BINARY_DIR}/lib)
+    install(TARGETS ${PROJECT_NAME} ARCHIVE DESTINATION ${PROJECT_BINARY_DIR}/lib)
 endif()
-
-
-

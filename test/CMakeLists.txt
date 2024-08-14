@@ -25,5 +25,5 @@ target_link_libraries(${PROJECT_NAME} hlog_st)
 else()
   message("Not running on Windows")
   # 指定目标需要链接的库（等价于 g++命令中的 -l）
-target_link_libraries(${PROJECT_NAME} hlog_st pthread)
+target_link_libraries(${PROJECT_NAME} LogWrapper pthread)
 endif()
