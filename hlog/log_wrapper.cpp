@@ -1,4 +1,4 @@
-﻿#include "log_wrapper.h"
+#include "log_wrapper.h"
 
 #include <dirent.h>
 #include <sys/stat.h>
@@ -170,6 +170,12 @@ bool LogWrapper::AddRotatingFile(const char* pFileName, const char* logDir,
       "[log]: AddRotatingFile, logName=%s  level=%d  fileName=%s  logDir=%s "
       "maxFileSize=%d  maxFile=%d \n",
       pLoggerName, level, pFileName, logDir, nMaxFileSize, nMaxFile);
+  if (!directory_exists(logDir)) {
+    printf("logdir not exist!\n");
+  } else {
+    cleanup_old_logs(logDir, 5);
+  }
+
   std::string logFullPath = GenerateLogFileName(pFileName, logDir);
   auto file_sink = std::make_shared<spdlog::sinks::rotating_file_sink_mt>(
       logFullPath, nMaxFileSize, nMaxFile);
@@ -239,6 +245,11 @@ bool LogWrapper::InitConfig(const char* configFile) {
         {
           int nMaxFileSize = GetJsonValue<int>("maxFileSize", jsSink);
           int nMaxFile = GetJsonValue<int>("maxFile", jsSink);
+          if (!directory_exists(logDir)) {
+            printf("logdir not exist!\n");
+          } else {
+            cleanup_old_logs(logDir, 5);
+          }
           AddRotatingFileCofig(fullLogPath.c_str(), recorderName.c_str(),
                                nMaxFileSize, nMaxFile, eLevel);
         } else if (strType == "daily_file")  // date file
