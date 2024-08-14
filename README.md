@@ -1,3 +1,5 @@
+# 原仓库https://gitee.com/for_ten_years/log
+# 在原来的基础上做了一些定制化的修改，
 # log
 
 #### 介绍
