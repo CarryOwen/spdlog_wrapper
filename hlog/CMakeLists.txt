@@ -11,13 +11,24 @@ set(SOURCES ./log_wrapper.cpp)
 # 添加头文件路径
 include_directories(./json/include)
 include_directories(./spdlog-1.x/include)
+include_directories(/usr/include/python3.8/)
 
 # 设置windows下msvc编译时，使用动态运行时库
 set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreadedDLL")
 
+execute_process(COMMAND python3-config --cflags OUTPUT_VARIABLE PYTHON_CFLAGS OUTPUT_STRIP_TRAILING_WHITESPACE)
+execute_process(COMMAND python3-config --ldflags OUTPUT_VARIABLE PYTHON_LDFLAGS OUTPUT_STRIP_TRAILING_WHITESPACE)
+# 分割路径
+separate_arguments(PYTHON_CFLAGS)
+separate_arguments(PYTHON_LDFLAGS)
+
+include_directories(${PYTHON_CFLAGS})
+link_libraries(${PYTHON_LDFLAGS})
+
+
 # 添加源文件到静态库
 add_library(${PROJECT_NAME} STATIC ${SOURCES})
-
+add_library(log_wrapper MODULE log_wrapper_bindings.cpp log_wrapper.cpp)
 # 链接第三方库
 target_link_libraries(${PROJECT_NAME} spdlogd nlohmann_json)
 
